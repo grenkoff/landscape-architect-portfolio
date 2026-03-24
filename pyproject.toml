@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "landscape-architect-portfolio"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=5.1,<5.2",
+    "gunicorn>=22.0",
+    "psycopg[binary]>=3.2",
+    "dj-database-url>=2.2",
+    "whitenoise>=6.7",
+    "django-modeltranslation>=0.19",
+    "django-cloudinary-storage>=0.3",
+    "cloudinary>=1.40",
+    "Pillow>=10.4",
+    "django-cleanup>=9.0",
+    "django-environ>=0.11",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.9",
+    "django-debug-toolbar>=4.4",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["config*", "apps*"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "N", "UP", "B", "SIM", "DJ"]
