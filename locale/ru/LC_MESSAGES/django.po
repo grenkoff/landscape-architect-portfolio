@@ -1,0 +1,92 @@
+# Russian translations for landscape architect portfolio.
+# Copyright (C) 2026
+# This file is distributed under the same license as the PACKAGE package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-25 00:55+0300\n"
+"PO-Revision-Date: 2026-03-25 00:55+0300\n"
+"Last-Translator: \n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: templates/components/_footer.html:8 templates/core/home.html:31
+msgid "Landscape Architecture & Design"
+msgstr "Ландшафтная архитектура и дизайн"
+
+#: templates/components/_footer.html:13 templates/components/_navbar.html:14
+#: templates/components/_navbar.html:32
+msgid "Contacts"
+msgstr "Контакты"
+
+#: templates/components/_footer.html:34
+msgid "Social"
+msgstr "Соцсети"
+
+#: templates/components/_navbar.html:12 templates/components/_navbar.html:30
+#: templates/portfolio/project_detail.html:15
+msgid "Home"
+msgstr "Главная"
+
+#: templates/components/_navbar.html:13 templates/components/_navbar.html:31
+#: templates/portfolio/project_detail.html:17
+#: templates/portfolio/project_list.html:4
+#: templates/portfolio/project_list.html:11
+msgid "Portfolio"
+msgstr "Портфолио"
+
+#: templates/core/home.html:5
+msgid "Landscape architecture and design services"
+msgstr "Услуги ландшафтной архитектуры и дизайна"
+
+#: templates/core/home.html:23
+msgid "View Portfolio"
+msgstr "Смотреть портфолио"
+
+#: templates/core/home.html:63
+msgid "Services"
+msgstr "Услуги"
+
+#: templates/core/home.html:85
+msgid "Featured Projects"
+msgstr "Избранные проекты"
+
+#: templates/core/home.html:87
+msgid "Selected works from our portfolio"
+msgstr "Избранные работы из нашего портфолио"
+
+#: templates/core/home.html:114
+msgid "View All Projects"
+msgstr "Все проекты"
+
+#: templates/portfolio/project_detail.html:56
+msgid "Project Gallery"
+msgstr "Галерея проекта"
+
+#: templates/portfolio/project_detail.html:75
+msgid "Back to Portfolio"
+msgstr "Назад к портфолио"
+
+#: templates/portfolio/project_list.html:5
+msgid "Landscape architecture projects and design portfolio"
+msgstr "Проекты ландшафтной архитектуры и портфолио дизайна"
+
+#: templates/portfolio/project_list.html:13
+msgid "Our landscape architecture projects"
+msgstr "Наши проекты ландшафтной архитектуры"
+
+#: templates/portfolio/project_list.html:21
+msgid "All"
+msgstr "Все"
+
+#: templates/portfolio/project_list.html:62
+msgid "No projects yet"
+msgstr "Проектов пока нет"
