@@ -35,22 +35,15 @@
             theme: {
                 extend: {
                     colors: {
-                        sage: {
-                            50: '#f6f7f4',
-                            100: '#e8ebe3',
-                            200: '#d1d7c7',
-                            300: '#b3bda3',
-                            400: '#95a37f',
-                            500: '#7a8b65',
-                            600: '#5f6e4e',
-                            700: '#4b573f',
-                            800: '#3d4734',
-                            900: '#343c2e',
-                        },
+                        cream:  '#FAFAF7',
+                        ivory:  '#F5F3EE',
+                        green:  { DEFAULT: '#4A7C59', light: '#5E9E6E', dark: '#3A6147', bg: '#EDF5EF' },
+                        gold:   { DEFAULT: '#C9A96E', light: '#D4BA8A' },
+                        dark:   { DEFAULT: '#2B3A2E', light: '#3D4E41' },
                     },
                     fontFamily: {
-                        heading: ['Playfair Display', 'serif'],
-                        body: ['Inter', 'sans-serif'],
+                        heading: ['Cormorant Garamond', 'serif'],
+                        body: ['Montserrat', 'sans-serif'],
                     },
                 },
             },
@@ -60,23 +53,24 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Swiper.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <!-- GLightbox -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
     <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
 
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
     {% block extra_head %}{% endblock %}
 </head>
-<body class="bg-sage-50 text-gray-800 min-h-screen flex flex-col font-body">
+<body class="bg-white text-[#555555] min-h-screen flex flex-col font-body">
 
     {% include "components/_navbar.html" %}
 

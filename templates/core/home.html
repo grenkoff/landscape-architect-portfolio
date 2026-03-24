@@ -5,48 +5,79 @@
 {% block meta_description %}{% trans "Landscape architecture and design services" %}{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-{% for hero in heroes %}
-<section class="relative h-[80vh] min-h-[500px] flex items-center justify-center overflow-hidden">
-    <div class="absolute inset-0">
-        <img src="{{ hero.background_image.url }}" alt="{{ hero.title }}"
-             class="w-full h-full object-cover" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
-        <div class="absolute inset-0 bg-black/40"></div>
-    </div>
-    <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-        <h1 class="font-heading text-4xl md:text-6xl font-bold mb-6 leading-tight">{{ hero.title }}</h1>
-        {% if hero.subtitle %}
-        <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">{{ hero.subtitle }}</p>
-        {% endif %}
-        <a href="{% url 'portfolio:project_list' %}"
-           class="inline-block mt-8 px-8 py-3 bg-sage-600 hover:bg-sage-700 text-white rounded-md transition font-medium">
-            {% trans "View Portfolio" %}
-        </a>
+<!-- Hero Carousel (Swiper) -->
+{% if heroes %}
+<section class="hero-swiper relative">
+    <div class="swiper" id="heroSwiper">
+        <div class="swiper-wrapper">
+            {% for hero in heroes %}
+            <div class="swiper-slide">
+                <div class="relative h-[85vh] min-h-[550px]">
+                    <img src="{{ hero.background_image.url }}" alt="{{ hero.title }}"
+                         class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 hero-gradient"></div>
+                    <div class="relative z-10 h-full flex items-center">
+                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                            <div class="max-w-2xl">
+                                <div class="gold-divider mb-8"></div>
+                                <h1 class="font-heading text-4xl md:text-6xl font-semibold text-white mb-6 leading-tight">
+                                    {{ hero.title }}
+                                </h1>
+                                {% if hero.subtitle %}
+                                <p class="text-lg text-white/80 font-light mb-10 leading-relaxed">
+                                    {{ hero.subtitle }}
+                                </p>
+                                {% endif %}
+                                <a href="{% url 'portfolio:project_list' %}" class="btn-white">
+                                    {% trans "View Portfolio" %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
     </div>
 </section>
-{% empty %}
-<section class="h-[60vh] min-h-[400px] flex items-center justify-center bg-sage-800 text-white">
-    <div class="text-center px-4">
-        <h1 class="font-heading text-4xl md:text-6xl font-bold mb-4">{{ site_settings.site_title }}</h1>
-        <p class="text-lg opacity-80">{% trans "Landscape Architecture & Design" %}</p>
+{% else %}
+<section class="h-[70vh] min-h-[450px] flex items-center bg-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="gold-divider mx-auto mb-8"></div>
+        <h1 class="font-heading text-4xl md:text-6xl font-semibold text-[#2D2D2D] mb-4">{{ site_settings.site_title }}</h1>
+        <p class="text-lg text-[#999999] font-light">{% trans "Landscape Architecture & Design" %}</p>
     </div>
 </section>
-{% endfor %}
+{% endif %}
 
 <!-- About Section -->
 {% if about %}
-<section class="py-20 bg-white">
+<section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <!-- Leaf decorator -->
+        <div class="text-center mb-16">
+            <svg class="w-8 h-8 mx-auto leaf-decorator" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
+            </svg>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             {% if about.photo %}
             <div>
-                <img src="{{ about.photo.url }}" alt="{{ about.heading }}"
-                     class="rounded-lg shadow-lg w-full object-cover max-h-[500px]" loading="lazy">
+                <div class="gold-frame inline-block">
+                    <img src="{{ about.photo.url }}" alt="{{ about.heading }}"
+                         class="w-full object-cover max-h-[500px]" loading="lazy">
+                </div>
             </div>
             {% endif %}
             <div class="{% if not about.photo %}md:col-span-2 max-w-3xl mx-auto text-center{% endif %}">
-                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-sage-800 mb-6">{{ about.heading }}</h2>
-                <div class="text-gray-600 leading-relaxed space-y-4">
+                <p class="text-xs font-body font-semibold uppercase tracking-widest text-gold mb-4">{% trans "About" %}</p>
+                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-[#2D2D2D] mb-4">{{ about.heading }}</h2>
+                <div class="gold-divider {% if not about.photo %}mx-auto{% endif %} mb-8"></div>
+                <div class="text-[#555555] leading-relaxed space-y-4">
                     {{ about.text|linebreaksbr }}
                 </div>
             </div>
@@ -57,19 +88,23 @@
 
 <!-- Services Section -->
 {% if services %}
-<section class="py-20 bg-sage-50">
+<section class="py-24 bg-cream">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="font-heading text-3xl md:text-4xl font-semibold text-sage-800 text-center mb-12">
-            {% trans "Services" %}
-        </h2>
+        <div class="text-center mb-16">
+            <p class="text-xs font-body font-semibold uppercase tracking-widest text-gold mb-4">{% trans "What We Do" %}</p>
+            <h2 class="font-heading text-3xl md:text-4xl font-semibold text-[#2D2D2D]">
+                {% trans "Services" %}
+            </h2>
+            <div class="gold-divider mx-auto mt-4"></div>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for service in services %}
-            <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition">
+            <div class="service-card bg-white p-8">
                 {% if service.icon %}
-                <div class="text-3xl mb-4">{{ service.icon }}</div>
+                <div class="text-3xl mb-4 text-green">{{ service.icon }}</div>
                 {% endif %}
-                <h3 class="font-heading text-xl font-semibold text-sage-800 mb-3">{{ service.title }}</h3>
-                <p class="text-gray-600 leading-relaxed">{{ service.description }}</p>
+                <h3 class="font-heading text-xl font-semibold text-[#2D2D2D] mb-3">{{ service.title }}</h3>
+                <p class="text-[#555555] leading-relaxed text-sm">{{ service.description }}</p>
             </div>
             {% endfor %}
         </div>
@@ -79,42 +114,63 @@
 
 <!-- Featured Projects -->
 {% if featured_projects %}
-<section class="py-20 bg-white">
+<section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="font-heading text-3xl md:text-4xl font-semibold text-sage-800 text-center mb-4">
-            {% trans "Featured Projects" %}
-        </h2>
-        <p class="text-center text-gray-500 mb-12">{% trans "Selected works from our portfolio" %}</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="text-center mb-16">
+            <p class="text-xs font-body font-semibold uppercase tracking-widest text-gold mb-4">{% trans "Our Work" %}</p>
+            <h2 class="font-heading text-3xl md:text-4xl font-semibold text-[#2D2D2D]">
+                {% trans "Featured Projects" %}
+            </h2>
+            <div class="gold-divider mx-auto mt-4"></div>
+            <p class="text-[#999999] mt-6">{% trans "Selected works from our portfolio" %}</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             {% for project in featured_projects %}
             <a href="{% url 'portfolio:project_detail' project.slug %}"
-               class="group block overflow-hidden rounded-lg shadow-sm hover:shadow-lg transition">
-                <div class="aspect-[4/3] overflow-hidden">
+               class="project-card group block overflow-hidden relative border border-[#E8E4DE]">
+                <div class="aspect-[3/2] overflow-hidden">
                     <img src="{{ project.cover_image.url }}" alt="{{ project.title }}"
-                         class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy">
-                </div>
-                <div class="p-5">
-                    <h3 class="font-heading text-lg font-semibold text-sage-800 group-hover:text-sage-600 transition">
-                        {{ project.title }}
-                    </h3>
-                    {% if project.location or project.year %}
-                    <p class="text-sm text-gray-500 mt-1">
-                        {% if project.location %}{{ project.location }}{% endif %}
-                        {% if project.location and project.year %} &middot; {% endif %}
-                        {% if project.year %}{{ project.year }}{% endif %}
-                    </p>
-                    {% endif %}
+                         class="w-full h-full object-cover" loading="lazy">
+                    <div class="project-overlay absolute inset-0 flex items-end p-8">
+                        <div class="text-white">
+                            <h3 class="font-heading text-2xl font-semibold mb-1">{{ project.title }}</h3>
+                            {% if project.location or project.year %}
+                            <p class="text-sm text-white/70">
+                                {% if project.location %}{{ project.location }}{% endif %}
+                                {% if project.location and project.year %} &middot; {% endif %}
+                                {% if project.year %}{{ project.year }}{% endif %}
+                            </p>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </a>
             {% endfor %}
         </div>
-        <div class="text-center mt-12">
-            <a href="{% url 'portfolio:project_list' %}"
-               class="inline-block px-8 py-3 border-2 border-sage-600 text-sage-600 hover:bg-sage-600 hover:text-white rounded-md transition font-medium">
-                {% trans "View All Projects" %}
+        <div class="text-center mt-16">
+            <a href="{% url 'portfolio:project_list' %}" class="btn-secondary">
+                {% trans "View All Projects" %} &rarr;
             </a>
         </div>
     </div>
 </section>
 {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (document.getElementById('heroSwiper')) {
+            new Swiper('#heroSwiper', {
+                effect: 'fade',
+                fadeEffect: { crossFade: true },
+                autoplay: { delay: 6000, disableOnInteraction: false },
+                loop: true,
+                speed: 1000,
+                pagination: { el: '.swiper-pagination', clickable: true },
+                navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            });
+        }
+    });
+</script>
 {% endblock %}

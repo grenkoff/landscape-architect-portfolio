@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-25 00:55+0300\n"
+"POT-Creation-Date: 2026-03-25 02:03+0300\n"
 "PO-Revision-Date: 2026-03-25 00:55+0300\n"
 "Last-Translator: \n"
 "Language-Team: English\n"
@@ -16,75 +16,65 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/components/_footer.html:8 templates/core/home.html:31
 msgid "Landscape Architecture & Design"
 msgstr "Landscape Architecture & Design"
 
-#: templates/components/_footer.html:13 templates/components/_navbar.html:14
-#: templates/components/_navbar.html:32
-msgid "Contacts"
-msgstr "Contacts"
+msgid "Navigation"
+msgstr "Navigation"
 
-#: templates/components/_footer.html:34
-msgid "Social"
-msgstr "Social"
-
-#: templates/components/_navbar.html:12 templates/components/_navbar.html:30
-#: templates/portfolio/project_detail.html:15
 msgid "Home"
 msgstr "Home"
 
-#: templates/components/_navbar.html:13 templates/components/_navbar.html:31
-#: templates/portfolio/project_detail.html:17
-#: templates/portfolio/project_list.html:4
-#: templates/portfolio/project_list.html:11
 msgid "Portfolio"
 msgstr "Portfolio"
 
-#: templates/core/home.html:5
+msgid "Contacts"
+msgstr "Contacts"
+
 msgid "Landscape architecture and design services"
 msgstr "Landscape architecture and design services"
 
-#: templates/core/home.html:23
 msgid "View Portfolio"
 msgstr "View Portfolio"
 
-#: templates/core/home.html:63
+msgid "About"
+msgstr "About"
+
+msgid "What We Do"
+msgstr "What We Do"
+
 msgid "Services"
 msgstr "Services"
 
-#: templates/core/home.html:85
+msgid "Our Work"
+msgstr "Our Work"
+
 msgid "Featured Projects"
 msgstr "Featured Projects"
 
-#: templates/core/home.html:87
 msgid "Selected works from our portfolio"
 msgstr "Selected works from our portfolio"
 
-#: templates/core/home.html:114
 msgid "View All Projects"
 msgstr "View All Projects"
 
-#: templates/portfolio/project_detail.html:56
 msgid "Project Gallery"
 msgstr "Project Gallery"
 
-#: templates/portfolio/project_detail.html:75
 msgid "Back to Portfolio"
 msgstr "Back to Portfolio"
 
-#: templates/portfolio/project_list.html:5
 msgid "Landscape architecture projects and design portfolio"
 msgstr "Landscape architecture projects and design portfolio"
 
-#: templates/portfolio/project_list.html:13
 msgid "Our landscape architecture projects"
 msgstr "Our landscape architecture projects"
 
-#: templates/portfolio/project_list.html:21
 msgid "All"
 msgstr "All"
 
-#: templates/portfolio/project_list.html:62
 msgid "No projects yet"
 msgstr "No projects yet"
+
+#~ msgid "Social"
+#~ msgstr "Social"

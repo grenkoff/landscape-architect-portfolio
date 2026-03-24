@@ -1,38 +1,55 @@
-{% load i18n %}
-<header x-data="{ mobileOpen: false }" class="bg-sage-900 text-white sticky top-0 z-50">
+{% load i18n static %}
+<header x-data="{ mobileOpen: false, scrolled: false }"
+        x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
+        :class="scrolled ? 'shadow-md' : ''"
+        class="bg-white sticky top-0 z-50 transition-shadow duration-300">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-            <!-- Logo / Site Title -->
-            <a href="{% url 'home' %}" class="font-heading text-xl font-semibold tracking-wide hover:text-sage-300 transition">
-                {{ site_settings.site_title }}
+        <div class="flex justify-between items-center h-20">
+            <!-- Logo -->
+            <a href="{% url 'home' %}" class="flex items-center space-x-3 group">
+                {% if site_settings.logo %}
+                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_title }}" class="h-10 w-auto">
+                {% else %}
+                    <!-- Default leaf icon -->
+                    <svg class="w-8 h-8 text-green" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
+                    </svg>
+                {% endif %}
+                <span class="font-heading text-2xl font-bold tracking-wide text-[#2D2D2D] group-hover:text-green transition-colors">
+                    {{ site_settings.site_title }}
+                </span>
             </a>
 
             <!-- Desktop nav -->
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="{% url 'home' %}" class="hover:text-sage-300 transition">{% trans "Home" %}</a>
-                <a href="{% url 'portfolio:project_list' %}" class="hover:text-sage-300 transition">{% trans "Portfolio" %}</a>
-                <a href="{% url 'home' %}#contacts" class="hover:text-sage-300 transition">{% trans "Contacts" %}</a>
+            <div class="hidden md:flex items-center space-x-10">
+                <a href="{% url 'home' %}" class="nav-link">{% trans "Home" %}</a>
+                <a href="{% url 'portfolio:project_list' %}" class="nav-link">{% trans "Portfolio" %}</a>
+                <a href="{% url 'home' %}#contacts" class="nav-link">{% trans "Contacts" %}</a>
 
-                {% include "components/_language_switcher.html" %}
+                <div class="ml-4 pl-4 border-l border-gray-200">
+                    {% include "components/_language_switcher.html" %}
+                </div>
             </div>
 
             <!-- Mobile menu button -->
-            <button @click="mobileOpen = !mobileOpen" class="md:hidden p-2" aria-label="Menu">
+            <button @click="mobileOpen = !mobileOpen" class="md:hidden p-2 text-[#2D2D2D]" aria-label="Menu">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path x-show="!mobileOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    <path x-show="mobileOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    <path x-show="!mobileOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+                    <path x-show="mobileOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
         </div>
 
         <!-- Mobile nav -->
-        <div x-show="mobileOpen" x-transition class="md:hidden pb-4 space-y-2">
-            <a href="{% url 'home' %}" class="block py-2 hover:text-sage-300 transition">{% trans "Home" %}</a>
-            <a href="{% url 'portfolio:project_list' %}" class="block py-2 hover:text-sage-300 transition">{% trans "Portfolio" %}</a>
-            <a href="{% url 'home' %}#contacts" class="block py-2 hover:text-sage-300 transition">{% trans "Contacts" %}</a>
-            <div class="pt-2">
+        <div x-show="mobileOpen" x-transition class="md:hidden pb-6 space-y-1 border-t border-gray-100">
+            <a href="{% url 'home' %}" class="block py-3 nav-link">{% trans "Home" %}</a>
+            <a href="{% url 'portfolio:project_list' %}" class="block py-3 nav-link">{% trans "Portfolio" %}</a>
+            <a href="{% url 'home' %}#contacts" class="block py-3 nav-link">{% trans "Contacts" %}</a>
+            <div class="pt-3 border-t border-gray-100">
                 {% include "components/_language_switcher.html" %}
             </div>
         </div>
     </nav>
+    <!-- Gold accent line -->
+    <div class="h-px bg-gold"></div>
 </header>

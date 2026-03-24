@@ -7,7 +7,7 @@ from .models import AboutSection, HeroSection, ServiceItem, SiteSettings
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(TranslationAdmin):
     fieldsets = (
-        (None, {"fields": ("site_title",)}),
+        (None, {"fields": ("site_title", "logo")}),
         ("Контакты", {"fields": ("phone", "email")}),
         ("Соцсети", {"fields": ("telegram_url", "instagram_url", "vk_url", "whatsapp_url")}),
         ("SEO / Верификация", {"fields": ("yandex_verification", "google_verification")}),
