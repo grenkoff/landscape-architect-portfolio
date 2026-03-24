@@ -11,6 +11,7 @@ class SeoMixin(models.Model):
 
 class SiteSettings(models.Model):
     site_title = models.CharField(max_length=200)
+    logo = models.ImageField(upload_to="logo/", blank=True, help_text="Site logo (SVG or PNG)")
     phone = models.CharField(max_length=50, blank=True)
     email = models.EmailField(blank=True)
     telegram_url = models.URLField(blank=True)
