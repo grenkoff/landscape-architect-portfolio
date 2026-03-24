@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Portfolio" %} | {{ site_settings.site_title }}{% endblock %}
+{% block meta_description %}{% trans "Landscape architecture projects and design portfolio" %}{% endblock %}
+
+{% block content %}
+<section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="font-heading text-3xl md:text-5xl font-semibold text-sage-800 text-center mb-4">
+            {% trans "Portfolio" %}
+        </h1>
+        <p class="text-center text-gray-500 mb-12">{% trans "Our landscape architecture projects" %}</p>
+
+        <!-- Category Filter -->
+        {% if categories %}
+        <div class="flex flex-wrap justify-center gap-3 mb-12">
+            <a href="{% url 'portfolio:project_list' %}"
+               class="px-4 py-2 rounded-full text-sm font-medium transition
+                      {% if not active_category %}bg-sage-600 text-white{% else %}bg-sage-100 text-sage-700 hover:bg-sage-200{% endif %}">
+                {% trans "All" %}
+            </a>
+            {% for cat in categories %}
+            <a href="{% url 'portfolio:project_list' %}?category={{ cat.slug }}"
+               class="px-4 py-2 rounded-full text-sm font-medium transition
+                      {% if active_category == cat.slug %}bg-sage-600 text-white{% else %}bg-sage-100 text-sage-700 hover:bg-sage-200{% endif %}">
+                {{ cat.name }}
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Projects Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for project in projects %}
+            <a href="{% url 'portfolio:project_detail' project.slug %}"
+               class="group block overflow-hidden rounded-lg shadow-sm hover:shadow-lg transition bg-white">
+                <div class="aspect-[4/3] overflow-hidden">
+                    <img src="{{ project.cover_image.url }}" alt="{{ project.title }}"
+                         class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy">
+                </div>
+                <div class="p-5">
+                    <h2 class="font-heading text-lg font-semibold text-sage-800 group-hover:text-sage-600 transition">
+                        {{ project.title }}
+                    </h2>
+                    {% if project.category %}
+                    <span class="inline-block mt-2 px-3 py-1 bg-sage-100 text-sage-700 text-xs rounded-full">
+                        {{ project.category.name }}
+                    </span>
+                    {% endif %}
+                    {% if project.location or project.year %}
+                    <p class="text-sm text-gray-500 mt-2">
+                        {% if project.location %}{{ project.location }}{% endif %}
+                        {% if project.location and project.year %} &middot; {% endif %}
+                        {% if project.year %}{{ project.year }}{% endif %}
+                    </p>
+                    {% endif %}
+                </div>
+            </a>
+            {% empty %}
+            <div class="col-span-full text-center py-20 text-gray-400">
+                <p class="text-xl">{% trans "No projects yet" %}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

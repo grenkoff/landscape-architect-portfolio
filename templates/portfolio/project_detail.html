@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ project.meta_title|default:project.title }} | {{ site_settings.site_title }}{% endblock %}
+{% block meta_description %}{{ project.meta_description|default:project.description|truncatewords:25 }}{% endblock %}
+{% block og_title %}{{ project.title }}{% endblock %}
+{% block og_description %}{{ project.description|truncatewords:25 }}{% endblock %}
+
+{% block content %}
+<article class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Breadcrumbs -->
+        <nav class="mb-8 text-sm text-gray-500">
+            <a href="{% url 'home' %}" class="hover:text-sage-600 transition">{% trans "Home" %}</a>
+            <span class="mx-2">/</span>
+            <a href="{% url 'portfolio:project_list' %}" class="hover:text-sage-600 transition">{% trans "Portfolio" %}</a>
+            <span class="mx-2">/</span>
+            <span class="text-gray-700">{{ project.title }}</span>
+        </nav>
+
+        <!-- Header -->
+        <header class="mb-12">
+            <h1 class="font-heading text-3xl md:text-5xl font-semibold text-sage-800 mb-4">{{ project.title }}</h1>
+            <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                {% if project.category %}
+                <span class="px-3 py-1 bg-sage-100 text-sage-700 rounded-full">{{ project.category.name }}</span>
+                {% endif %}
+                {% if project.location %}
+                <span>{{ project.location }}</span>
+                {% endif %}
+                {% if project.year %}
+                <span>{{ project.year }}</span>
+                {% endif %}
+            </div>
+        </header>
+
+        <!-- Cover Image -->
+        <div class="mb-12 rounded-lg overflow-hidden shadow-lg">
+            <a href="{{ project.cover_image.url }}" class="glightbox" data-gallery="project">
+                <img src="{{ project.cover_image.url }}" alt="{{ project.title }}"
+                     class="w-full max-h-[600px] object-cover">
+            </a>
+        </div>
+
+        <!-- Description -->
+        <div class="max-w-3xl mx-auto mb-16">
+            <div class="prose prose-lg text-gray-600 leading-relaxed">
+                {{ project.description|linebreaksbr }}
+            </div>
+        </div>
+
+        <!-- Gallery -->
+        {% if project.images.all %}
+        <section>
+            <h2 class="font-heading text-2xl font-semibold text-sage-800 mb-8 text-center">{% trans "Project Gallery" %}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {% for img in project.images.all %}
+                <a href="{{ img.image.url }}" class="glightbox group block rounded-lg overflow-hidden"
+                   data-gallery="project" data-description="{{ img.caption }}">
+                    <div class="aspect-[4/3] overflow-hidden">
+                        <img src="{{ img.image.url }}" alt="{{ img.caption|default:project.title }}"
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy">
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Back link -->
+        <div class="mt-16 text-center">
+            <a href="{% url 'portfolio:project_list' %}"
+               class="inline-block px-8 py-3 border-2 border-sage-600 text-sage-600 hover:bg-sage-600 hover:text-white rounded-md transition font-medium">
+                {% trans "Back to Portfolio" %}
+            </a>
+        </div>
+    </div>
+</article>
+{% endblock %}
