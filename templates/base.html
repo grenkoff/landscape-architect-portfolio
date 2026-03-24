@@ -1,0 +1,88 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ site_settings.site_title }}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{% endblock %}">
+    {% if site_settings.yandex_verification %}
+    <meta name="yandex-verification" content="{{ site_settings.yandex_verification }}">
+    {% endif %}
+    {% if site_settings.google_verification %}
+    <meta name="google-site-verification" content="{{ site_settings.google_verification }}">
+    {% endif %}
+
+    {% block og_tags %}
+    <meta property="og:title" content="{% block og_title %}{{ site_settings.site_title }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="{{ LANGUAGE_CODE }}">
+    {% endblock %}
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: {
+                            50: '#f6f7f4',
+                            100: '#e8ebe3',
+                            200: '#d1d7c7',
+                            300: '#b3bda3',
+                            400: '#95a37f',
+                            500: '#7a8b65',
+                            600: '#5f6e4e',
+                            700: '#4b573f',
+                            800: '#3d4734',
+                            900: '#343c2e',
+                        },
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- GLightbox -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+    </style>
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-sage-50 text-gray-800 min-h-screen flex flex-col font-body">
+
+    {% include "components/_navbar.html" %}
+
+    <main class="flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include "components/_footer.html" %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const lightbox = GLightbox({ selector: '.glightbox' });
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

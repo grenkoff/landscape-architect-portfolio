@@ -10,6 +10,8 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path("admin/", admin.site.urls),
+    path("portfolio/", include("apps.portfolio.urls")),
+    path("", include("apps.core.urls")),
 )
 
 if settings.DEBUG:

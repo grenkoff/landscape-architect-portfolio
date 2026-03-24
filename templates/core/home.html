@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{{ site_settings.site_title }}{% endblock %}
+{% block meta_description %}{% trans "Landscape architecture and design services" %}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+{% for hero in heroes %}
+<section class="relative h-[80vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0">
+        <img src="{{ hero.background_image.url }}" alt="{{ hero.title }}"
+             class="w-full h-full object-cover" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+        <div class="absolute inset-0 bg-black/40"></div>
+    </div>
+    <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+        <h1 class="font-heading text-4xl md:text-6xl font-bold mb-6 leading-tight">{{ hero.title }}</h1>
+        {% if hero.subtitle %}
+        <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">{{ hero.subtitle }}</p>
+        {% endif %}
+        <a href="{% url 'portfolio:project_list' %}"
+           class="inline-block mt-8 px-8 py-3 bg-sage-600 hover:bg-sage-700 text-white rounded-md transition font-medium">
+            {% trans "View Portfolio" %}
+        </a>
+    </div>
+</section>
+{% empty %}
+<section class="h-[60vh] min-h-[400px] flex items-center justify-center bg-sage-800 text-white">
+    <div class="text-center px-4">
+        <h1 class="font-heading text-4xl md:text-6xl font-bold mb-4">{{ site_settings.site_title }}</h1>
+        <p class="text-lg opacity-80">{% trans "Landscape Architecture & Design" %}</p>
+    </div>
+</section>
+{% endfor %}
+
+<!-- About Section -->
+{% if about %}
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {% if about.photo %}
+            <div>
+                <img src="{{ about.photo.url }}" alt="{{ about.heading }}"
+                     class="rounded-lg shadow-lg w-full object-cover max-h-[500px]" loading="lazy">
+            </div>
+            {% endif %}
+            <div class="{% if not about.photo %}md:col-span-2 max-w-3xl mx-auto text-center{% endif %}">
+                <h2 class="font-heading text-3xl md:text-4xl font-semibold text-sage-800 mb-6">{{ about.heading }}</h2>
+                <div class="text-gray-600 leading-relaxed space-y-4">
+                    {{ about.text|linebreaksbr }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Services Section -->
+{% if services %}
+<section class="py-20 bg-sage-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="font-heading text-3xl md:text-4xl font-semibold text-sage-800 text-center mb-12">
+            {% trans "Services" %}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for service in services %}
+            <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition">
+                {% if service.icon %}
+                <div class="text-3xl mb-4">{{ service.icon }}</div>
+                {% endif %}
+                <h3 class="font-heading text-xl font-semibold text-sage-800 mb-3">{{ service.title }}</h3>
+                <p class="text-gray-600 leading-relaxed">{{ service.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Featured Projects -->
+{% if featured_projects %}
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="font-heading text-3xl md:text-4xl font-semibold text-sage-800 text-center mb-4">
+            {% trans "Featured Projects" %}
+        </h2>
+        <p class="text-center text-gray-500 mb-12">{% trans "Selected works from our portfolio" %}</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for project in featured_projects %}
+            <a href="{% url 'portfolio:project_detail' project.slug %}"
+               class="group block overflow-hidden rounded-lg shadow-sm hover:shadow-lg transition">
+                <div class="aspect-[4/3] overflow-hidden">
+                    <img src="{{ project.cover_image.url }}" alt="{{ project.title }}"
+                         class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy">
+                </div>
+                <div class="p-5">
+                    <h3 class="font-heading text-lg font-semibold text-sage-800 group-hover:text-sage-600 transition">
+                        {{ project.title }}
+                    </h3>
+                    {% if project.location or project.year %}
+                    <p class="text-sm text-gray-500 mt-1">
+                        {% if project.location %}{{ project.location }}{% endif %}
+                        {% if project.location and project.year %} &middot; {% endif %}
+                        {% if project.year %}{{ project.year }}{% endif %}
+                    </p>
+                    {% endif %}
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-12">
+            <a href="{% url 'portfolio:project_list' %}"
+               class="inline-block px-8 py-3 border-2 border-sage-600 text-sage-600 hover:bg-sage-600 hover:text-white rounded-md transition font-medium">
+                {% trans "View All Projects" %}
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
