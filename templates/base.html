@@ -13,11 +13,19 @@
     <meta name="google-site-verification" content="{{ site_settings.google_verification }}">
     {% endif %}
 
+    <!-- Canonical & hreflang -->
+    <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+    {% get_available_languages as LANGUAGES %}
+    {% for lang_code, lang_name in LANGUAGES %}
+    <link rel="alternate" hreflang="{{ lang_code }}" href="{{ request.scheme }}://{{ request.get_host }}/{{ lang_code }}{{ request.path|slice:'3:' }}">
+    {% endfor %}
+
     {% block og_tags %}
     <meta property="og:title" content="{% block og_title %}{{ site_settings.site_title }}{% endblock %}">
     <meta property="og:description" content="{% block og_description %}{% endblock %}">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="{{ LANGUAGE_CODE }}">
+    <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
     {% endblock %}
 
     <!-- Tailwind CSS CDN -->
@@ -77,6 +85,24 @@
     </main>
 
     {% include "components/_footer.html" %}
+
+    <!-- JSON-LD Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "{{ site_settings.site_title }}",
+        "url": "{{ request.scheme }}://{{ request.get_host }}",
+        {% if site_settings.email %}"email": "{{ site_settings.email }}",{% endif %}
+        {% if site_settings.phone %}"telephone": "{{ site_settings.phone }}",{% endif %}
+        "sameAs": [
+            {% if site_settings.telegram_url %}"{{ site_settings.telegram_url }}"{% endif %}
+            {% if site_settings.instagram_url %}{% if site_settings.telegram_url %},{% endif %}"{{ site_settings.instagram_url }}"{% endif %}
+            {% if site_settings.vk_url %}{% if site_settings.telegram_url or site_settings.instagram_url %},{% endif %}"{{ site_settings.vk_url }}"{% endif %}
+        ]
+    }
+    </script>
+    {% block json_ld %}{% endblock %}
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
