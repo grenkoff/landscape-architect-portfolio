@@ -4,54 +4,79 @@
 {% block title %}{{ site_settings.site_title }}{% endblock %}
 {% block meta_description %}{% trans "Landscape architecture and design services" %}{% endblock %}
 
-{% block content %}
-<!-- Hero Carousel (Swiper) -->
-{% if heroes %}
-<section class="hero-swiper relative">
-    <div class="swiper" id="heroSwiper">
-        <div class="swiper-wrapper">
-            {% for hero in heroes %}
-            <div class="swiper-slide">
-                <div class="relative h-[85vh] min-h-[550px]">
-                    <img src="{{ hero.background_image.url }}" alt="{{ hero.title }}"
-                         class="absolute inset-0 w-full h-full object-cover">
-                    <div class="absolute inset-0 hero-gradient"></div>
-                    <div class="relative z-10 h-full flex items-center">
-                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                            <div class="max-w-2xl">
-                                <div class="gold-divider mb-8"></div>
-                                <h1 class="font-heading text-4xl md:text-6xl font-semibold text-white mb-6 leading-tight">
-                                    {{ hero.title }}
-                                </h1>
-                                {% if hero.subtitle %}
-                                <p class="text-lg text-white/80 font-light mb-10 leading-relaxed">
-                                    {{ hero.subtitle }}
-                                </p>
-                                {% endif %}
-                                <a href="{% url 'portfolio:project_list' %}" class="btn-white">
-                                    {% trans "View Portfolio" %}
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+{% block navbar %}
+<!-- Initial transparent header (scrolls away) -->
+<header class="header-transparent" x-data="{ mobileOpen: false }">
+    <nav class="px-4 pt-4 pr-4">
+        <div class="flex items-center justify-between">
+            <a href="{% url 'home' %}" class="flex items-center gap-3">
+                <img src="{% static 'images/logo_ep.png' %}" alt="{{ site_settings.site_title }}" class="header-logo">
+                <div class="header-brand hidden lg:block">
+                    <div class="header-brand-name">EKATERINA&nbsp;PROKOFIEVA</div>
+                    <div class="header-brand-title">&mdash;&nbsp;LANDSCAPE&nbsp;ARCHITECT</div>
                 </div>
+            </a>
+            <div class="hidden lg:flex items-center gap-14">
+                <a href="{% url 'home' %}#about" class="header-nav-link">обо&nbsp;мне</a>
+                <a href="{% url 'portfolio:project_list' %}" class="header-nav-link">проекты</a>
             </div>
-            {% endfor %}
+            <button @click="mobileOpen = !mobileOpen" class="lg:hidden p-2" aria-label="Menu">
+                <svg class="w-8 h-8 text-[#F5F3F0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path x-show="!mobileOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+                    <path x-show="mobileOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
         </div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-    </div>
+        <!-- Mobile menu -->
+        <div x-show="mobileOpen" x-transition class="lg:hidden pt-4 pb-2 space-y-3 text-right">
+            <a href="{% url 'home' %}#about" class="block header-nav-link">обо&nbsp;мне</a>
+            <a href="{% url 'portfolio:project_list' %}" class="block header-nav-link">проекты</a>
+        </div>
+    </nav>
+</header>
+
+<!-- Fixed header (appears after half-screen scroll) -->
+<header class="header-fixed" x-data="{ show: false, mobileOpen: false }"
+        x-init="window.addEventListener('scroll', () => { show = window.scrollY > window.innerHeight / 2 })"
+        :class="show ? 'header-fixed-visible' : ''">
+    <nav class="px-4 py-3 pr-4">
+        <div class="flex items-center justify-between">
+            <a href="{% url 'home' %}" class="flex items-center gap-3">
+                <img src="{% static 'images/logo_ep.png' %}" alt="{{ site_settings.site_title }}" class="header-logo header-logo-dark">
+                <div class="header-brand hidden lg:block">
+                    <div class="header-brand-name" style="color: #2D2D2D;">EKATERINA&nbsp;PROKOFIEVA</div>
+                    <div class="header-brand-title" style="color: #2D2D2D;">&mdash;&nbsp;LANDSCAPE&nbsp;ARCHITECT</div>
+                </div>
+            </a>
+            <div class="hidden lg:flex items-center gap-14">
+                <a href="{% url 'home' %}#about" class="header-nav-link" style="color: #2D2D2D;">обо&nbsp;мне</a>
+                <a href="{% url 'portfolio:project_list' %}" class="header-nav-link" style="color: #2D2D2D;">проекты</a>
+            </div>
+            <button @click="mobileOpen = !mobileOpen" class="lg:hidden p-2" aria-label="Menu">
+                <svg class="w-8 h-8 text-[#2D2D2D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path x-show="!mobileOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+                    <path x-show="mobileOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile menu -->
+        <div x-show="mobileOpen" x-transition class="lg:hidden pt-4 pb-2 space-y-3 text-right">
+            <a href="{% url 'home' %}#about" class="block header-nav-link" style="color: #2D2D2D;">обо&nbsp;мне</a>
+            <a href="{% url 'portfolio:project_list' %}" class="block header-nav-link" style="color: #2D2D2D;">проекты</a>
+        </div>
+    </nav>
+</header>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Image -->
+<section class="hero-banner">
+    <img src="{% static 'images/IMG_1152.JPG' %}"
+         alt="{{ site_settings.site_title }}">
 </section>
-{% else %}
-<section class="h-[70vh] min-h-[450px] flex items-center bg-cream">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div class="gold-divider mx-auto mb-8"></div>
-        <h1 class="font-heading text-4xl md:text-6xl font-semibold text-[#2D2D2D] mb-4">{{ site_settings.site_title }}</h1>
-        <p class="text-lg text-[#999999] font-light">{% trans "Landscape Architecture & Design" %}</p>
-    </div>
-</section>
-{% endif %}
+
+<!-- TODO: temporary spacer, remove later -->
+<section class="py-24 bg-white" style="min-height: 200vh;"></section>
 
 <!-- About Section -->
 {% if about %}

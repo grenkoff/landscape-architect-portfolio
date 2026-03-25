@@ -72,7 +72,9 @@
 </head>
 <body class="bg-white text-[#555555] min-h-screen flex flex-col font-body">
 
+    {% block navbar %}
     {% include "components/_navbar.html" %}
+    {% endblock %}
 
     <main class="flex-grow">
         {% block content %}{% endblock %}
