@@ -33,20 +33,20 @@
 
 {% block content %}
 <!-- Breadcrumbs -->
-<div class="bg-cream py-4">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav class="text-sm text-[#999999]">
-            <a href="{% url 'home' %}" class="hover:text-green transition">{% trans "Home" %}</a>
-            <span class="mx-2 text-gold">/</span>
-            <a href="{% url 'portfolio:project_list' %}" class="hover:text-green transition">{% trans "Portfolio" %}</a>
-            <span class="mx-2 text-gold">/</span>
-            <span class="text-[#2D2D2D]">{{ project.title }}</span>
+<div class="bg-white py-4 border-b border-[#E5E5E5]">
+    <div class="max-w-5xl mx-auto px-6 lg:px-12">
+        <nav class="text-xs text-[#999999] tracking-wide">
+            <a href="{% url 'home' %}" class="hover:text-black transition-colors duration-200">{% trans "Home" %}</a>
+            <span class="mx-2">/</span>
+            <a href="{% url 'portfolio:project_list' %}" class="hover:text-black transition-colors duration-200">{% trans "Projects" %}</a>
+            <span class="mx-2">/</span>
+            <span class="text-black">{{ project.title }}</span>
         </nav>
     </div>
 </div>
 
-<!-- Cover Image Hero -->
-<section class="relative">
+<!-- Cover Image -->
+<section>
     <div class="aspect-[21/9] max-h-[550px] overflow-hidden">
         <a href="{{ project.cover_image.url }}" class="glightbox" data-gallery="project">
             <img src="{{ project.cover_image.url }}" alt="{{ project.title }}"
@@ -57,26 +57,16 @@
 
 <!-- Project Header -->
 <section class="py-16 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {% if project.category %}
-        <p class="text-xs font-body font-semibold uppercase tracking-widest text-gold mb-4">{{ project.category.name }}</p>
-        {% endif %}
-        <h1 class="font-heading text-4xl md:text-5xl font-semibold text-[#2D2D2D]">{{ project.title }}</h1>
-        <div class="gold-divider mx-auto mt-4"></div>
+    <div class="max-w-3xl mx-auto px-6 lg:px-12">
+        <h1 class="text-xs font-medium uppercase tracking-[0.2em] text-black mb-6">{{ project.title }}</h1>
         {% if project.location or project.year %}
-        <p class="text-[#999999] mt-6">
+        <p class="text-xs text-[#999999] mb-8">
             {% if project.location %}{{ project.location }}{% endif %}
             {% if project.location and project.year %} &middot; {% endif %}
             {% if project.year %}{{ project.year }}{% endif %}
         </p>
         {% endif %}
-    </div>
-</section>
-
-<!-- Description -->
-<section class="py-16 bg-cream">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-[#555555] leading-relaxed space-y-4 text-lg">
+        <div class="text-[#313131] font-light space-y-4" style="line-height: 1.8; font-size: 0.9375rem;">
             {{ project.description|linebreaksbr }}
         </div>
     </div>
@@ -84,34 +74,27 @@
 
 <!-- Gallery -->
 {% if project.images.all %}
-<section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <svg class="w-8 h-8 mx-auto leaf-decorator" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
-            </svg>
-            <h2 class="font-heading text-3xl font-semibold text-[#2D2D2D] mt-4">{% trans "Project Gallery" %}</h2>
-            <div class="gold-divider mx-auto mt-4"></div>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {% for img in project.images.all %}
-            <a href="{{ img.image.url }}" class="glightbox group block overflow-hidden border border-[#E8E4DE]"
-               data-gallery="project" data-description="{{ img.caption }}">
-                <div class="aspect-[4/3] overflow-hidden">
-                    <img src="{{ img.image.url }}" alt="{{ img.caption|default:project.title }}"
-                         class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy">
-                </div>
-            </a>
-            {% endfor %}
-        </div>
+<section class="pb-16 bg-white">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {% for img in project.images.all %}
+        <a href="{{ img.image.url }}" class="glightbox group block overflow-hidden"
+           data-gallery="project" data-description="{{ img.caption }}">
+            <div class="aspect-[4/3] overflow-hidden">
+                <img src="{{ img.image.url }}" alt="{{ img.caption|default:project.title }}"
+                     class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500" loading="lazy">
+            </div>
+        </a>
+        {% endfor %}
     </div>
 </section>
 {% endif %}
 
 <!-- Back link -->
-<section class="py-16 bg-cream text-center">
-    <a href="{% url 'portfolio:project_list' %}" class="btn-secondary">
-        &larr; {% trans "Back to Portfolio" %}
-    </a>
+<section class="py-12 bg-white border-t border-[#E5E5E5]">
+    <div class="max-w-5xl mx-auto px-6 lg:px-12">
+        <a href="{% url 'portfolio:project_list' %}" class="text-xs font-medium uppercase tracking-[0.15em] text-[#999999] hover:text-black transition-colors duration-200">
+            &larr; {% trans "Back to Projects" %}
+        </a>
+    </div>
 </section>
 {% endblock %}
