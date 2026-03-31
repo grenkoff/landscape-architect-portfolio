@@ -107,28 +107,21 @@
     <div class="max-w-5xl mx-auto px-6 lg:px-12 py-20">
         <h2 class="text-xs font-medium uppercase tracking-[0.2em] text-black mb-12">{% trans "Projects" %}</h2>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2">
+    <div class="grid grid-cols-1 gap-4 px-4">
         {% for project in featured_projects %}
         <a href="{% url 'portfolio:project_detail' project.slug %}"
-           class="project-card group block overflow-hidden relative">
-            <div class="aspect-[3/2] overflow-hidden">
+           class="block overflow-hidden">
+            <div class="aspect-[2/1] overflow-hidden">
                 <img src="{{ project.cover_image.url }}" alt="{{ project.title }}"
                      class="w-full h-full object-cover" loading="lazy">
-                <div class="project-overlay absolute inset-0 flex items-end p-6">
-                    <div>
-                        <h3 class="text-base font-medium text-white mb-0.5">{{ project.title }}</h3>
-                        {% if project.location or project.year %}
-                        <p class="text-xs text-white/60">
-                            {% if project.location %}{{ project.location }}{% endif %}
-                            {% if project.location and project.year %} &middot; {% endif %}
-                            {% if project.year %}{{ project.year }}{% endif %}
-                        </p>
-                        {% endif %}
-                    </div>
-                </div>
             </div>
         </a>
         {% endfor %}
+    </div>
+    <div class="max-w-5xl mx-auto px-6 lg:px-12 py-16">
+        <a href="{% url 'portfolio:project_list' %}" class="text-2xl tracking-wide text-[#999999] hover:text-black transition-colors duration-200">
+            все&nbsp;мои&nbsp;проекты &rarr;
+        </a>
     </div>
 </section>
 {% endif %}
