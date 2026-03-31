@@ -35,14 +35,9 @@
             theme: {
                 extend: {
                     colors: {
-                        cream:  '#FAFAF7',
-                        ivory:  '#F5F3EE',
-                        green:  { DEFAULT: '#4A7C59', light: '#5E9E6E', dark: '#3A6147', bg: '#EDF5EF' },
-                        gold:   { DEFAULT: '#C9A96E', light: '#D4BA8A' },
-                        dark:   { DEFAULT: '#2B3A2E', light: '#3D4E41' },
+                        light: '#F5F5F3',
                     },
                     fontFamily: {
-                        heading: ['Cormorant Garamond', 'serif'],
                         body: ['Montserrat', 'sans-serif'],
                     },
                 },
@@ -53,7 +48,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -70,7 +65,7 @@
 
     {% block extra_head %}{% endblock %}
 </head>
-<body class="bg-white text-[#555555] min-h-screen flex flex-col font-body">
+<body class="bg-white text-[#313131] min-h-screen flex flex-col font-body">
 
     {% block navbar %}
     {% include "components/_navbar.html" %}

@@ -1,48 +1,37 @@
 {% load i18n %}
-<!-- Gold top border -->
-<div class="h-0.5 bg-gold"></div>
-<footer id="contacts" class="bg-dark text-[#B8C4BA] py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<footer id="contacts" class="bg-[#1a1a1a] text-[#999999] py-16">
+    <div class="max-w-5xl mx-auto px-6 lg:px-12">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
             <!-- Brand -->
             <div>
-                <div class="flex items-center space-x-3 mb-4">
-                    {% if site_settings.logo %}
-                        <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_title }}" class="h-8 w-auto brightness-200">
-                    {% else %}
-                        <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
-                        </svg>
-                    {% endif %}
-                    <span class="font-heading text-xl font-bold text-white">{{ site_settings.site_title }}</span>
-                </div>
-                <p class="text-sm leading-relaxed">{% trans "Landscape Architecture & Design" %}</p>
+                <span class="text-sm font-medium uppercase tracking-[0.2em] text-white">{{ site_settings.site_title }}</span>
+                <p class="text-sm mt-3" style="line-height: 1.7;">{% trans "Landscape Architecture & Design" %}</p>
             </div>
 
             <!-- Navigation -->
             <div>
-                <h4 class="text-xs font-body font-semibold uppercase tracking-widest text-gold mb-6">{% trans "Navigation" %}</h4>
+                <h4 class="text-xs font-medium uppercase tracking-[0.2em] text-white mb-6">{% trans "Navigation" %}</h4>
                 <ul class="space-y-3 text-sm">
-                    <li><a href="{% url 'home' %}" class="hover:text-white transition">{% trans "Home" %}</a></li>
-                    <li><a href="{% url 'portfolio:project_list' %}" class="hover:text-white transition">{% trans "Portfolio" %}</a></li>
-                    <li><a href="#contacts" class="hover:text-white transition">{% trans "Contacts" %}</a></li>
+                    <li><a href="{% url 'home' %}" class="hover:text-white transition-colors duration-200">{% trans "Home" %}</a></li>
+                    <li><a href="{% url 'portfolio:project_list' %}" class="hover:text-white transition-colors duration-200">{% trans "Portfolio" %}</a></li>
+                    <li><a href="#contacts" class="hover:text-white transition-colors duration-200">{% trans "Contacts" %}</a></li>
                 </ul>
             </div>
 
             <!-- Contact Info & Social -->
             <div>
-                <h4 class="text-xs font-body font-semibold uppercase tracking-widest text-gold mb-6">{% trans "Contacts" %}</h4>
+                <h4 class="text-xs font-medium uppercase tracking-[0.2em] text-white mb-6">{% trans "Contacts" %}</h4>
                 <ul class="space-y-3 text-sm">
                     {% if site_settings.phone %}
                     <li>
-                        <a href="tel:{{ site_settings.phone }}" class="hover:text-white transition">
+                        <a href="tel:{{ site_settings.phone }}" class="hover:text-white transition-colors duration-200">
                             {{ site_settings.phone }}
                         </a>
                     </li>
                     {% endif %}
                     {% if site_settings.email %}
                     <li>
-                        <a href="mailto:{{ site_settings.email }}" class="hover:text-white transition">
+                        <a href="mailto:{{ site_settings.email }}" class="hover:text-white transition-colors duration-200">
                             {{ site_settings.email }}
                         </a>
                     </li>
@@ -75,7 +64,7 @@
             </div>
         </div>
 
-        <div class="mt-12 pt-8 border-t border-dark-light text-center text-sm text-[#7A8A7E]">
+        <div class="mt-12 pt-8 border-t border-[#333333] text-center text-xs text-[#666666]">
             &copy; {% now "Y" %} {{ site_settings.site_title }}
         </div>
     </div>

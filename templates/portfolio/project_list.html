@@ -6,69 +6,58 @@
 
 {% block content %}
 <!-- Page Header -->
-<section class="py-20 bg-cream">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <p class="text-xs font-body font-semibold uppercase tracking-widest text-gold mb-4">{% trans "Our Work" %}</p>
-        <h1 class="font-heading text-4xl md:text-5xl font-semibold text-[#2D2D2D]">
-            {% trans "Portfolio" %}
-        </h1>
-        <div class="gold-divider mx-auto mt-4"></div>
-        <p class="text-[#999999] mt-6">{% trans "Our landscape architecture projects" %}</p>
+<section class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-6 lg:px-12">
+        <h1 class="text-xs font-medium uppercase tracking-[0.2em] text-black">{% trans "Projects" %}</h1>
     </div>
 </section>
 
-<section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="bg-white pb-20">
+    <div class="max-w-5xl mx-auto px-6 lg:px-12">
         <!-- Category Filter -->
         {% if categories %}
-        <div class="flex flex-wrap justify-center gap-3 mb-16">
+        <div class="flex flex-wrap gap-4 mb-12">
             <a href="{% url 'portfolio:project_list' %}"
-               class="filter-pill {% if not active_category %}active{% endif %}">
+               class="text-xs font-medium uppercase tracking-[0.15em] transition-colors duration-200 {% if not active_category %}text-black{% else %}text-[#999999] hover:text-black{% endif %}">
                 {% trans "All" %}
             </a>
             {% for cat in categories %}
             <a href="{% url 'portfolio:project_list' %}?category={{ cat.slug }}"
-               class="filter-pill {% if active_category == cat.slug %}active{% endif %}">
+               class="text-xs font-medium uppercase tracking-[0.15em] transition-colors duration-200 {% if active_category == cat.slug %}text-black{% else %}text-[#999999] hover:text-black{% endif %}">
                 {{ cat.name }}
             </a>
             {% endfor %}
         </div>
         {% endif %}
+    </div>
 
-        <!-- Projects Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {% for project in projects %}
-            <a href="{% url 'portfolio:project_detail' project.slug %}"
-               class="project-card group block overflow-hidden relative border border-[#E8E4DE]">
-                <div class="aspect-[3/2] overflow-hidden">
-                    <img src="{{ project.cover_image.url }}" alt="{{ project.title }}"
-                         class="w-full h-full object-cover" loading="lazy">
-                    <div class="project-overlay absolute inset-0 flex items-end p-8">
-                        <div class="text-white">
-                            <h2 class="font-heading text-2xl font-semibold mb-1">{{ project.title }}</h2>
-                            {% if project.category %}
-                            <span class="text-xs uppercase tracking-widest text-gold-light">{{ project.category.name }}</span>
-                            {% endif %}
-                            {% if project.location or project.year %}
-                            <p class="text-sm text-white/70 mt-1">
-                                {% if project.location %}{{ project.location }}{% endif %}
-                                {% if project.location and project.year %} &middot; {% endif %}
-                                {% if project.year %}{{ project.year }}{% endif %}
-                            </p>
-                            {% endif %}
-                        </div>
+    <!-- Projects Grid — full-width -->
+    <div class="grid grid-cols-1 md:grid-cols-2">
+        {% for project in projects %}
+        <a href="{% url 'portfolio:project_detail' project.slug %}"
+           class="project-card group block overflow-hidden relative">
+            <div class="aspect-[3/2] overflow-hidden">
+                <img src="{{ project.cover_image.url }}" alt="{{ project.title }}"
+                     class="w-full h-full object-cover" loading="lazy">
+                <div class="project-overlay absolute inset-0 flex items-end p-6">
+                    <div>
+                        <h2 class="text-base font-medium text-white mb-0.5">{{ project.title }}</h2>
+                        {% if project.location or project.year %}
+                        <p class="text-xs text-white/60">
+                            {% if project.location %}{{ project.location }}{% endif %}
+                            {% if project.location and project.year %} &middot; {% endif %}
+                            {% if project.year %}{{ project.year }}{% endif %}
+                        </p>
+                        {% endif %}
                     </div>
                 </div>
-            </a>
-            {% empty %}
-            <div class="col-span-full text-center py-24">
-                <svg class="w-12 h-12 mx-auto leaf-decorator mb-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
-                </svg>
-                <p class="text-xl text-[#999999] font-heading">{% trans "No projects yet" %}</p>
             </div>
-            {% endfor %}
+        </a>
+        {% empty %}
+        <div class="col-span-full text-center py-24 px-6">
+            <p class="text-sm text-[#999999]">{% trans "No projects yet" %}</p>
         </div>
+        {% endfor %}
     </div>
 </section>
 {% endblock %}

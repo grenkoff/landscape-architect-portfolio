@@ -7,11 +7,11 @@
     {% for lang_code, lang_name in LANGUAGES %}
         {% if lang_code != CURRENT_LANGUAGE %}
             <button type="submit" name="language" value="{{ lang_code }}"
-                    class="text-xs uppercase tracking-widest font-medium text-[#999999] hover:text-green transition">
+                    class="text-xs uppercase tracking-widest font-medium text-[#999999] hover:text-black transition-colors duration-200">
                 {{ lang_code }}
             </button>
         {% else %}
-            <span class="text-xs uppercase tracking-widest font-semibold text-[#2D2D2D]">{{ lang_code }}</span>
+            <span class="text-xs uppercase tracking-widest font-semibold text-black">{{ lang_code }}</span>
         {% endif %}
         {% if not forloop.last %}<span class="text-gray-300">|</span>{% endif %}
     {% endfor %}
