@@ -13,5 +13,5 @@ class HomeView(TemplateView):
         ctx["heroes"] = HeroSection.objects.filter(is_active=True)
         ctx["services"] = ServiceItem.objects.all()
         ctx["about"] = AboutSection.objects.first()
-        ctx["featured_projects"] = Project.objects.filter(is_published=True)[:6]
+        ctx["featured_projects"] = Project.objects.filter(is_published=True)[:5]
         return ctx
