@@ -79,6 +79,31 @@
 {% endif %}
 {% endwith %}
 
+<!-- Projects -->
+{% if featured_projects %}
+<section class="bg-white">
+    <div class="max-w-5xl mx-auto px-6 lg:px-12 py-20">
+        <h2 class="text-xs font-medium uppercase tracking-[0.2em] text-black mb-12">{% trans "Projects" %}</h2>
+    </div>
+    <div class="grid grid-cols-1 gap-4 px-4">
+        {% for project in featured_projects %}
+        <a href="{% url 'portfolio:project_detail' project.slug %}"
+           class="block overflow-hidden reveal">
+            <div class="aspect-[2/1] overflow-hidden">
+                <img src="{{ project.cover_image.url }}" alt="{{ project.title }}"
+                     class="w-full h-full object-cover" loading="lazy">
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    <div class="max-w-5xl mx-auto px-6 lg:px-12 py-16">
+        <a href="{% url 'portfolio:project_list' %}" class="text-2xl tracking-wide text-[#999999] hover:text-black transition-colors duration-200">
+            все&nbsp;мои&nbsp;проекты &rarr;
+        </a>
+    </div>
+</section>
+{% endif %}
+
 <!-- About Section -->
 {% if about %}
 <section id="about" class="py-20 bg-white">
@@ -100,31 +125,6 @@
     </div>
 </section>
 {% endif %}
-
-<!-- Projects -->
-{% if featured_projects %}
-<section class="bg-white">
-    <div class="max-w-5xl mx-auto px-6 lg:px-12 py-20">
-        <h2 class="text-xs font-medium uppercase tracking-[0.2em] text-black mb-12">{% trans "Projects" %}</h2>
-    </div>
-    <div class="grid grid-cols-1 gap-4 px-4">
-        {% for project in featured_projects %}
-        <a href="{% url 'portfolio:project_detail' project.slug %}"
-           class="block overflow-hidden">
-            <div class="aspect-[2/1] overflow-hidden">
-                <img src="{{ project.cover_image.url }}" alt="{{ project.title }}"
-                     class="w-full h-full object-cover" loading="lazy">
-            </div>
-        </a>
-        {% endfor %}
-    </div>
-    <div class="max-w-5xl mx-auto px-6 lg:px-12 py-16">
-        <a href="{% url 'portfolio:project_list' %}" class="text-2xl tracking-wide text-[#999999] hover:text-black transition-colors duration-200">
-            все&nbsp;мои&nbsp;проекты &rarr;
-        </a>
-    </div>
-</section>
-{% endif %}
 {% endblock %}
 
 {% block extra_js %}
@@ -141,6 +141,19 @@
                 navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
             });
         }
+
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal').forEach(function (el) {
+            observer.observe(el);
+        });
     });
 </script>
 {% endblock %}
